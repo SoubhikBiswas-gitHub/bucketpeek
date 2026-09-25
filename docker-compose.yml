@@ -1,0 +1,51 @@
+# Deccan Lens
+#
+#   SECRET_KEY=$(openssl rand -hex 32) docker compose up -d --build     # http://localhost:3000
+#   npm run fixtures
+#   SECRET_KEY=$(openssl rand -hex 32) docker compose --profile demo up -d --build demo
+#                                                                       # http://localhost:3001, no AWS keys
+#
+# Compose checks SECRET_KEY for every service, including the demo.
+# The app keeps video conversion jobs in memory, so run exactly one replica.
+
+x-app: &app
+  build: .
+  image: deccan-lens
+  restart: unless-stopped
+  init: true
+  volumes:
+    # Converted video segments, on disk rather than in memory. The app keeps
+    # the cache under LENS_HLS_MAX_GB (default 20) and deletes old videos.
+    - hls-cache:/data/hls
+
+services:
+  deccan-lens:
+    <<: *app
+    ports:
+      - "3000:3000"
+    environment:
+      SECRET_KEY: ${SECRET_KEY:?Set SECRET_KEY (32+ chars)}
+      # Empty: Secure cookies (HTTPS only; browsers also allow them on http://localhost).
+      # Set COOKIE_SECURE=false to serve plain http on another address.
+      COOKIE_SECURE: ${COOKIE_SECURE:-}
+      # One JSON object per line on stdout/stderr: debug, info (default), warn, error or silent.
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+
+  # Serves ./fixtures/bucket (npm run fixtures) as a fake bucket. Any keys connect.
+  demo:
+    <<: *app
+    profiles: ["demo"]
+    ports:
+      - "3001:3000"
+    environment:
+      SECRET_KEY: ${SECRET_KEY:?Set SECRET_KEY (32+ chars)}
+      COOKIE_SECURE: "false"
+      LENS_MOCK_DIR: /data/bucket
+    volumes:
+      # Its own cache: two app processes must not prune each other's segments.
+      - hls-cache-demo:/data/hls
+      - ./fixtures/bucket:/data/bucket:ro
+
+volumes:
+  hls-cache:
+  hls-cache-demo:

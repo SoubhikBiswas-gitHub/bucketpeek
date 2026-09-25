@@ -1,0 +1,95 @@
+/* All foregrounds pass WCAG AA on --surface-1 and --surface-2 (lowest: text-3 at 6.3:1). */
+.lens-syntax {
+  --syntax-fg: var(--text-1);
+  --syntax-comment: var(--text-3);
+  --syntax-punctuation: var(--text-3);
+  --syntax-keyword: var(--brand);
+  --syntax-string: var(--kind-data);
+  --syntax-number: var(--kind-doc);
+  --syntax-constant: var(--brand);
+  --syntax-function: var(--kind-image);
+  --syntax-type: var(--kind-video);
+  --syntax-property: var(--kind-image);
+  --syntax-tag: var(--brand);
+  --syntax-attribute: var(--kind-video);
+  --syntax-regex: var(--kind-audio);
+  --syntax-heading: var(--brand);
+  --syntax-link: var(--kind-image);
+  --syntax-inserted: var(--kind-data);
+  --syntax-deleted: var(--danger);
+  --syntax-error: var(--danger);
+  --syntax-warning: var(--brand);
+  --syntax-info: var(--kind-image);
+  --syntax-muted: var(--text-3);
+
+  /* @uiw/react-json-view reads these. */
+  --w-rjv-font-family: var(--font-mono);
+  --w-rjv-color: var(--syntax-property);
+  --w-rjv-key-string: var(--syntax-property);
+  --w-rjv-key-number: var(--syntax-number);
+  --w-rjv-background-color: transparent;
+  --w-rjv-line-color: var(--line-1);
+  --w-rjv-arrow-color: var(--text-3);
+  --w-rjv-edit-color: var(--syntax-property);
+  --w-rjv-info-color: var(--text-3);
+  --w-rjv-update-color: var(--brand);
+  --w-rjv-copied-color: var(--text-3);
+  --w-rjv-copied-success-color: var(--brand);
+  --w-rjv-curlybraces-color: var(--text-2);
+  --w-rjv-colon-color: var(--text-3);
+  --w-rjv-brackets-color: var(--text-2);
+  --w-rjv-ellipsis-color: var(--text-3);
+  --w-rjv-quotes-color: var(--syntax-property);
+  --w-rjv-quotes-string-color: var(--syntax-string);
+  --w-rjv-type-string-color: var(--syntax-string);
+  --w-rjv-type-int-color: var(--syntax-number);
+  --w-rjv-type-float-color: var(--syntax-number);
+  --w-rjv-type-bigint-color: var(--syntax-number);
+  --w-rjv-type-boolean-color: var(--syntax-keyword);
+  --w-rjv-type-date-color: var(--syntax-type);
+  --w-rjv-type-url-color: var(--syntax-link);
+  --w-rjv-type-null-color: var(--text-3);
+  --w-rjv-type-nan-color: var(--syntax-number);
+  --w-rjv-type-undefined-color: var(--text-3);
+}
+
+/* JSON tree layout tweaks the library has no props for. The toggle is 20px wide plus 4px gap, so
+   leaf rows are indented by 24px to line their keys up with expandable siblings. */
+.lens-json-tree .w-rjv-wrap {
+  margin-left: 9.5px !important;
+  padding-left: 13px !important;
+}
+.lens-json-tree .w-rjv-line {
+  padding-left: 24px;
+  border-radius: 4px;
+}
+.lens-json-tree .w-rjv-line:hover,
+.lens-json-tree .w-rjv-inner > span:first-child:hover {
+  background-color: var(--surface-2);
+}
+.lens-json-tree .w-rjv-inner > span:first-child {
+  border-radius: 4px;
+  padding-right: 6px;
+}
+.lens-json-tree .w-rjv-colon {
+  margin-right: 6px !important;
+}
+.lens-json-tree .w-rjv-object-size {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-style: normal !important;
+}
+.lens-json-tree .w-rjv-object-key,
+.lens-json-tree .w-rjv-value {
+  overflow-wrap: anywhere;
+}
+.lens-json-tree svg[viewBox="0 0 32 36"] {
+  width: 12px;
+  height: 12px;
+  margin-left: 8px;
+  cursor: pointer;
+  vertical-align: -1px;
+}
+.lens-json-tree svg[viewBox="0 0 32 36"]:hover {
+  fill: var(--text-1);
+}

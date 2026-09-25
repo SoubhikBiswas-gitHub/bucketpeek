@@ -1,0 +1,167 @@
+/* Menus can be portaled out of the player on small screens, so their variables are also set on .vds-menu-items. */
+
+.lens-player[data-media-player],
+.vds-menu-items {
+  --video-brand: var(--brand);
+  --media-brand: var(--brand);
+  --video-font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --media-font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --video-focus-ring-color: var(--brand);
+  --media-focus-ring-color: var(--brand);
+  --video-focus-ring: 0 0 0 2px var(--brand);
+  --media-focus-ring: 0 0 0 2px var(--brand);
+
+  --media-slider-track-bg: rgb(255 255 255 / 0.22);
+  --media-slider-track-progress-bg: rgb(255 255 255 / 0.4);
+  --media-slider-track-fill-bg: var(--brand);
+  --media-slider-thumb-bg: var(--brand);
+  --media-slider-thumb-border: 1px solid var(--on-brand);
+  --media-slider-value-bg: var(--surface-3);
+  --media-slider-value-color: var(--text-1);
+  --media-slider-value-border: 1px solid var(--line-2);
+  --media-slider-value-border-radius: 6px;
+  --media-slider-preview-bg: var(--surface-3);
+
+  --media-time-font-size: 13px;
+  --media-time-font-weight: 500;
+
+  --media-tooltip-bg-color: var(--surface-3);
+  --media-tooltip-color: var(--text-1);
+  --media-tooltip-border: 1px solid var(--line-2);
+  --media-tooltip-border-radius: 6px;
+  --media-tooltip-font-size: 12px;
+  --media-tooltip-font-weight: 500;
+  --media-tooltip-padding: 4px 8px;
+
+  --media-menu-bg: var(--surface-2);
+  --media-menu-border: 1px solid var(--line-2);
+  --media-menu-border-radius: 10px;
+  --media-menu-box-shadow: 0 16px 40px rgb(0 0 0 / 0.55);
+  --media-menu-font-size: 13px;
+  --media-menu-font-weight: 500;
+  --media-menu-text-color: var(--text-1);
+  --media-menu-text-secondary-color: var(--text-2);
+  --media-menu-hint-color: var(--text-2);
+  --media-menu-item-hover-bg: var(--surface-3);
+  --media-menu-item-border-radius: 6px;
+  --media-menu-section-bg: var(--surface-1);
+  --media-menu-section-border: 1px solid var(--line-1);
+  --media-menu-section-border-radius: 8px;
+  --media-menu-top-bar-bg: var(--surface-2);
+  --media-menu-divider: 1px solid var(--line-1);
+  --media-menu-radio-icon-color: var(--brand);
+  --media-menu-checkbox-bg: var(--line-3);
+  --media-menu-checkbox-bg-active: var(--brand);
+  --media-menu-checkbox-handle-bg: var(--text-1);
+  --media-menu-slider-track-bg: var(--line-2);
+  --media-menu-slider-track-fill-bg: var(--brand);
+  --media-menu-scrollbar-thumb-bg: var(--line-3);
+
+  --media-kb-bezel-bg: rgb(0 0 0 / 0.6);
+  --media-kb-text-bg: rgb(0 0 0 / 0.7);
+  --media-kb-text-color: var(--text-1);
+  --media-kb-icon-color: var(--text-1);
+
+  --media-button-hover-bg: rgb(255 255 255 / 0.12);
+  --media-button-border-radius: 6px;
+}
+
+.lens-player[data-media-player] {
+  --video-bg: #000;
+  /* The viewer's stage draws the frame and clips the corners. */
+  --video-border: none;
+  --video-border-radius: 0;
+  --video-controls-color: var(--text-1);
+  --video-time-bg: transparent;
+  --video-sm-play-button-bg: rgb(0 0 0 / 0.55);
+  --video-load-button-bg: var(--brand);
+  --video-load-button-color: var(--on-brand);
+}
+
+/* Keeps the picture's aspect ratio (--lens-ratio) at the largest size that fits; needs a stage with a definite height. */
+.lens-player-frame {
+  position: relative;
+  container-type: size;
+  background: var(--surface-0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 12rem;
+}
+
+.lens-player-box {
+  position: relative;
+  aspect-ratio: var(--lens-ratio, 1.7778);
+  width: min(100cqw - 2 * var(--lens-gap, 0px), (100cqh - 2 * var(--lens-gap, 0px)) * var(--lens-ratio, 1.7778));
+  max-height: 100cqh;
+  background: #000;
+  border-radius: var(--lens-gap, 0px);
+  overflow: hidden;
+}
+
+.lens-player[data-media-player] {
+  aspect-ratio: auto;
+  width: 100%;
+  height: 100%;
+}
+
+.lens-player [data-media-provider] {
+  height: 100%;
+  aspect-ratio: auto;
+}
+
+.lens-player [data-media-provider] video {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+
+/* The page header shows the file name; repeat it only in fullscreen, where the header is hidden. */
+.lens-player:not([data-fullscreen]) .vds-chapter-title {
+  visibility: hidden; /* keeps its flex space, which pushes the settings group right */
+}
+
+.lens-player .vds-time {
+  font-family: var(--font-jetbrains-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+
+/* The global :focus-visible outline would double up with Vidstack's own focus ring. */
+.lens-player :is(button, [role="slider"], [role="menuitem"], [role="menuitemradio"]):focus-visible,
+.vds-menu-items :is(button, [role="slider"], [role="menuitem"], [role="menuitemradio"]):focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+/* Vidstack's theme removes the player's outline, yet the player is a Tab stop. The ring goes on the
+   box, which clips the player and whose video would paint over an inset ring. */
+.lens-player-box:has(> .lens-player[data-media-player]:focus-visible) {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+@keyframes lens-indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(250%);
+  }
+}
+
+.lens-indeterminate {
+  animation: lens-indeterminate 1.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lens-indeterminate {
+    animation: none;
+    width: 100%;
+    opacity: 0.5;
+  }
+}

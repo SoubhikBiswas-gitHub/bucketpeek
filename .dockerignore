@@ -1,0 +1,37 @@
+# Dependencies and build output are recreated inside the image.
+node_modules
+.next
+out
+build
+*.tsbuildinfo
+next-env.d.ts
+
+# VCS, local tooling, secrets
+.git
+.gitignore
+.gstack
+.claude
+.vercel
+.env*
+!.env.example
+.lens
+.DS_Store
+*.pem
+
+# Tests, fixtures and their output (not needed to build or run the app)
+fixtures
+e2e
+tests
+scripts
+playwright.config.ts
+vitest.config.ts
+playwright-report
+test-results
+blob-report
+coverage
+*.log
+
+# Container files themselves
+Dockerfile
+.dockerignore
+docker-compose.yml

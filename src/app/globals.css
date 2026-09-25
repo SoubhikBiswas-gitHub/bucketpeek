@@ -1,0 +1,197 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+  Deccan Lens design tokens. Dark only.
+  Surfaces are pure neutral greys, darkest first. Text contrast on --surface-3
+  (the lightest surface any text sits on):
+    --text-1 #ededed 12.4:1   --text-2 #b4b4b4 7.0:1   --text-3 #969696 4.9:1
+  Brand saffron #f5a524 as text/icon: 8.3:1 on --surface-3.
+  Primary button: #1a1205 on #f5a524 is 9.5:1 (hover #ffb840: 10.6:1).
+  Kind tints are icon colors only (equal OKLCH lightness ~0.8), all >= 6.7:1.
+*/
+:root {
+  color-scheme: dark;
+
+  --surface-0: #121212;
+  --surface-1: #181818;
+  --surface-2: #1f1f1f;
+  --surface-3: #292929;
+
+  --line-1: #2e2e2e;
+  --line-2: #3e3e3e;
+  --line-3: #525252;
+
+  --text-1: #ededed;
+  --text-2: #b4b4b4;
+  --text-3: #969696;
+
+  --brand: #f5a524;
+  --brand-strong: #f5a524;
+  --brand-strong-hover: #ffb840;
+  --brand-line: rgb(245 165 36 / 0.38);
+  --brand-mist: rgb(245 165 36 / 0.1);
+  --on-brand: #1a1205;
+
+  --danger: #f47373;
+  --danger-line: rgb(244 115 115 / 0.32);
+  --danger-mist: rgb(244 115 115 / 0.08);
+
+  --kind-folder: #adadad;
+  --kind-video: #6fd4c4;
+  --kind-image: #89c3e8;
+  --kind-audio: #c2b0e4;
+  --kind-doc: #eaa7a1;
+  --kind-data: #a9d38a;
+  --kind-other: #969696;
+
+  /* shadcn/ui semantic tokens mapped onto the palette */
+  --background: var(--surface-0);
+  --foreground: var(--text-1);
+  --card: var(--surface-1);
+  --card-foreground: var(--text-1);
+  --popover: var(--surface-2);
+  --popover-foreground: var(--text-1);
+  --primary: var(--brand-strong);
+  --primary-foreground: var(--on-brand);
+  --secondary: var(--surface-2);
+  --secondary-foreground: var(--text-1);
+  --muted: var(--surface-2);
+  --muted-foreground: var(--text-3);
+  --accent: var(--surface-3);
+  --accent-foreground: var(--text-1);
+  --destructive: var(--danger);
+  --border: var(--line-1);
+  --input: var(--line-2);
+  --ring: var(--brand);
+  --radius: 0.5rem;
+
+  --chart-1: var(--brand);
+  --chart-2: var(--kind-image);
+  --chart-3: var(--kind-audio);
+  --chart-4: var(--kind-data);
+  --chart-5: var(--kind-doc);
+  --sidebar: var(--surface-1);
+  --sidebar-foreground: var(--text-1);
+  --sidebar-primary: var(--brand-strong);
+  --sidebar-primary-foreground: var(--on-brand);
+  --sidebar-accent: var(--surface-3);
+  --sidebar-accent-foreground: var(--text-1);
+  --sidebar-border: var(--line-1);
+  --sidebar-ring: var(--brand);
+
+  --page-width: 1480px;
+  --topbar-height: 56px;
+}
+
+@theme inline {
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  --font-heading: var(--font-sans);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Palette utilities: bg-surface-1, text-text-2, border-line-2, text-brand, text-kind-video … */
+  --color-surface-0: var(--surface-0);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line-1: var(--line-1);
+  --color-line-2: var(--line-2);
+  --color-line-3: var(--line-3);
+  --color-text-1: var(--text-1);
+  --color-text-2: var(--text-2);
+  --color-text-3: var(--text-3);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-strong-hover: var(--brand-strong-hover);
+  --color-brand-line: var(--brand-line);
+  --color-brand-mist: var(--brand-mist);
+  --color-on-brand: var(--on-brand);
+  --color-danger: var(--danger);
+  --color-danger-line: var(--danger-line);
+  --color-danger-mist: var(--danger-mist);
+  --color-kind-folder: var(--kind-folder);
+  --color-kind-video: var(--kind-video);
+  --color-kind-image: var(--kind-image);
+  --color-kind-audio: var(--kind-audio);
+  --color-kind-doc: var(--kind-doc);
+  --color-kind-data: var(--kind-data);
+  --color-kind-other: var(--kind-other);
+
+  --radius-sm: calc(var(--radius) * 0.75);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) * 1.5);
+  --radius-xl: calc(var(--radius) * 2);
+  --radius-2xl: calc(var(--radius) * 2.5);
+  --radius-3xl: calc(var(--radius) * 3);
+  --radius-4xl: calc(var(--radius) * 3.5);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: rgb(245 165 36 / 0.3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
